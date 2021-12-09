@@ -212,17 +212,19 @@ let mainDeck = [
 let shuffledDeck = [];
 
 while (mainDeck.length !== 0) {
-    let randomIndex = Math.floor(Math.random() * mainDeck.length);
-   shuffledDeck.push(mainDeck[randomIndex]);
-    mainDeck.splice(randomIndex, 1);
+    let index = Math.floor(Math.random() * mainDeck.length);
+   shuffledDeck.push(mainDeck[index]);
+    mainDeck.splice(index, 1);
 }
 
-/*console.log(shuffledDeck)
+/*console.log(shuffledDeck)*/
 
 let deck1 = shuffledDeck.slice(0, 26);
 let deck2 = shuffledDeck.slice(26, 52);
 
 console.log(deck1);
+
+/*console.log(deck1);
 console.log(deck2);*/
 
 
@@ -231,17 +233,44 @@ class Deck {
         this.deck = deck;
     }
 
-    Deal() {
+    DealDeck1() {
+        let deck1 = this.deck.slice(0, 26);
+        }
 
+    DealDeck2() {
+        let deck2 = this.deck.slice(26, 52);
     }
 }
 
+console.log(new Deck(shuffledDeck).DealDeck2());
+
 class Player {
-    constructor(name) {
+    constructor(name, deck) {
         this.name = name;
+        this.deck = deck;
         let score = 0;
     }
 }
+
+/*
+let player1 = [
+    {
+        name: 'Sam',
+        deck: deck1,
+        score: 0
+    }
+]
+
+let player2 = [
+    {
+        name: 'Noah',
+        deck: deck2,
+        score: 0
+    }
+]
+*/
+
+/*console.log(player1[0].score);*/
 
 class War {
     constructor(player1, player2) {
@@ -250,15 +279,30 @@ class War {
     }
     
     runGame() {
-        for(let i = 0; i < deck1.length; i++) {
-
+        for(let i = 0; i < 26; i++) {
+            console.log(`${this.player1[0].name} plays ${this.player1[0].deck[i].name} and ${this.player2[0].name} plays ${this.player2[0].deck[i].name}.`);
+            if (this.player1[0].deck[i].value > this.player2[0].deck[i].value) {
+                this.player1[0].score += 1;
+            } else if (this.player1[0].deck[i].value < this.player2[0].deck[i].value) {
+                this.player2[0].score += 1;
+            }
+        }
+        console.log(`${this.player1[0].name} scored ${this.player1[0].score} points and ${this.player2[0].name} scored ${this.player2[0].score} points`);
+        if (this.player1[0].score > this.player2[0].score) {
+            console.log(`${this.player1[0].name} wins!`);
+        } else if (this.player1[0].score < this.player2[0].score) {
+            console.log(`${this.player2[0].name} wins!`);
+        } else {
+            console.log('Its a tie!');
         }
     }
 }
-
+/*
+console.log(new War(player1, player2).runGame());
+*/
 class Menu {
     constructor() {
-
+        this.players = [];
     }
 
     start() {
@@ -284,14 +328,22 @@ class Menu {
         `)
     }
 
-    createPlayer() {
+    createPlayer(deck) {
         let name = prompt('Enter name for new player');
-        this.players.push(new player(name));
+        this.players.push(new Player(name, deck));
     }
 
     startGame() {
-        
+        let deck1 = new Deck(shuffledDeck).DealDeck1();
+        let deck2 = new Deck(shuffledDeck).DealDeck2();
+        this.createPlayer(deck1);
+        this.createPlayer(deck2);
+        alert(this.players[0].name);
     }
+
+    
+
+
 
 }
 
