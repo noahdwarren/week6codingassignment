@@ -1,3 +1,4 @@
+//I decided to just make a main deck object as opposed to making a loop that constructs a deck.
 let mainDeck = [
     {
         name: 'Ace of Spades',
@@ -211,12 +212,16 @@ let mainDeck = [
 
 let shuffledDeck = [];
 
+
+//This loop takes the main deck and "shuffles" it using random numbers 
 while (mainDeck.length !== 0) {
     let index = Math.floor(Math.random() * mainDeck.length);
    shuffledDeck.push(mainDeck[index]);
     mainDeck.splice(index, 1);
 }
 
+
+//This splits the randomized deck in half
 let deck1 = shuffledDeck.slice(0, 26);
 let deck2 = shuffledDeck.slice(26, 52);
 
